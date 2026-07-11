@@ -1,6 +1,12 @@
-# AWS Data Lake Labs
+# AWS Data Lake Workshop — Hands-On Labs
 
-Hands-on labs for building a production-style data lake on AWS — from raw CSV ingestion through governance, CDC, and analytics.
+A hands-on AWS data lake workshop covering **Amazon S3**, **AWS Glue**, **Amazon Athena**,
+**AWS Lake Formation**, **Amazon Redshift Serverless**, **AWS Database Migration Service (DMS)**,
+and **Amazon OpenSearch Service** — building a production-style data lake end to end, from raw
+ingestion through governance, change data capture (CDC), and analytics.
+
+Designed for **data engineers, cloud engineers, and solutions architects** building real-world
+AWS data platform skills through instructor-led, console- and CLI-driven labs — not slides.
 
 ---
 
@@ -20,16 +26,16 @@ Every resource you create must be prefixed `quicklabs-<USER>-` (or `quicklabs_<U
 
 ---
 
-## Labs
+## Workshop labs
 
-| Lab | Topic | Lab guide |
+| Lab | AWS services covered | Lab guide |
 |---|---|---|
-| Lab 1 | S3 · Glue Crawler · Glue ETL (PySpark) · Athena | [console-lab-glue-athena.md](lab-1-data-lake/console-lab-glue-athena.md) · [cli version](lab-1-data-lake/cli-lab-glue-athena.md) |
-| Lab 2 | Event-driven ingestion — S3 → SQS → Lambda | [console-lab-lambda-ingestion.md](lab-2-lambda-ingestion/console-lab-lambda-ingestion.md) |
-| Lab 3 | Lake Formation — row/column/tag-based access control | [lakeformation-console-demo.md](lab-3-lake-formation/lakeformation-console-demo.md) |
-| Lab 4 | Redshift Serverless · federated query from RDS | [console-lab-redshift-federated-query.md](lab-4-redshift-serverless/console-lab-redshift-federated-query.md) |
-| Lab 5 | CDC — Postgres → DMS → S3 or Postgres target | [console-lab-cdc-dms-postgres.md](lab-5-cdc/console-lab-cdc-dms-postgres.md) |
-| Lab 6 | OpenSearch — ingestion, search, and dashboards | [student-lab-6-opensearch.md](lab-6-opensearch/student-lab-6-opensearch.md) |
+| Lab 1 | **Amazon S3** · **AWS Glue** Crawler & ETL (PySpark) · **Amazon Athena** | [console-lab-glue-athena.md](lab-1-data-lake/console-lab-glue-athena.md) · [cli version](lab-1-data-lake/cli-lab-glue-athena.md) |
+| Lab 2 | Event-driven ingestion — **Amazon S3** → **Amazon SQS** → **AWS Lambda** | [console-lab-lambda-ingestion.md](lab-2-lambda-ingestion/console-lab-lambda-ingestion.md) |
+| Lab 3 | **AWS Lake Formation** — row/column/tag-based access control | [lakeformation-console-demo.md](lab-3-lake-formation/lakeformation-console-demo.md) |
+| Lab 4 | **Amazon Redshift Serverless** · federated query from RDS | [console-lab-redshift-federated-query.md](lab-4-redshift-serverless/console-lab-redshift-federated-query.md) |
+| Lab 5 | Change data capture (CDC) — PostgreSQL → **AWS Database Migration Service (DMS)** → S3 or PostgreSQL target | [console-lab-cdc-dms-postgres.md](lab-5-cdc/console-lab-cdc-dms-postgres.md) |
+| Lab 6 | **Amazon OpenSearch Service** — ingestion, search, and dashboards | [student-lab-6-opensearch.md](lab-6-opensearch/student-lab-6-opensearch.md) |
 
 Labs 1–3 build on each other. Labs 4–6 are standalone and can be done in any order after Lab 1.
 
