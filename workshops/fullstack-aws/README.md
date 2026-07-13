@@ -92,11 +92,6 @@ Terraform projects handle this automatically when you pass `student_name=<slug>`
 
 ---
 
-## 50 Practice Questions
-
-[`fullstack-bootcamp-mcq-50.csv`](./fullstack-bootcamp-mcq-50.csv) — 50 MCQs covering the full curriculum. Use for self-assessment or interview prep.
-
----
 
 ## Live Delivery
 
