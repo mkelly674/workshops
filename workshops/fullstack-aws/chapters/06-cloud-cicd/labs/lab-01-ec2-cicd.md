@@ -93,12 +93,7 @@ echo "=== Starting Nginx service ==="
 sudo systemctl enable nginx
 sudo systemctl start nginx
 
-echo "=== Fetching Public IP (IMDSv2) ==="
-# Modern Amazon Linux requires a token to fetch metadata securely
-TOKEN=$(curl -s -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600")
-PUBLIC_IP=$(curl -s -H "X-aws-ec2-metadata-token: $TOKEN" http://169.254.169.254/latest/meta-data/public-ipv4)
-
-echo "Done! Open http://$PUBLIC_IP"```
+```
 
 ### Step 3: Open the browser
 
