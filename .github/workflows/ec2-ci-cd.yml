@@ -10,40 +10,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # --- DEBUG STEP: Print out the variables to verify them ---
-      - name: Debug and Print Variables
-        run: |
-          echo "=== Debugging Configuration Variables ==="
-          echo "Target Host: ${{ vars.EC2_HOST }}"
-          echo "SSH Username: ${{ vars.EC2_USER }}"
-          echo "----------------------------------------"
-          echo "Raw Base64 Key String:"
-          echo "${{ vars.EC2_SSH_KEY }}"
-          echo "----------------------------------------"
-          echo "Decoded SSH Key Layout (Previewing formatting):"
-          echo "${{ vars.vars.EC2_SSH_KEY }}" | base64 --decode
-          echo "========================================"
-
-      # --- DEPLOYMENT STEP ---
       - name: Deploy nginx to EC2
         uses: appleboy/ssh-action@v1.0.3
         with:
-          host: ${{ vars.EC2_HOST }}
-          username: ${{ vars.EC2_USER }}
-          # Decode the base64 variable back into a valid multi-line private key structure
-          key: |
-            ${{ vars.EC2_SSH_KEY }}
-          debug: true # Enables verbose SSH connection logs inside appleboy
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            set -e
-            echo "=== Installing Nginx ==="
-            sudo dnf update -y -q
-            sudo dnf install -y -q nginx
+            # Update/install Nginx for Amazon Linux
+            sudo dnf install -y nginx
 
-            echo "=== Creating Web Directory ==="
-            sudo mkdir -p /usr/share/nginx/html
-
-            echo "=== Creating Hello World page ==="
+            # Write the Hello World page to the Amazon Linux default web root
             sudo tee /usr/share/nginx/html/index.html > /dev/null <<'EOF'
             <!DOCTYPE html>
             <html>
@@ -55,6 +32,6 @@ jobs:
             </html>
             EOF
 
-            echo "=== Starting Nginx ==="
+            # Ensure Nginx is enabled and running
             sudo systemctl enable nginx
             sudo systemctl start nginx
