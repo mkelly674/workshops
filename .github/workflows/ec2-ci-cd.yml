@@ -1,0 +1,60 @@
+name: Deploy to EC2
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # --- DEBUG STEP: Print out the variables to verify them ---
+      - name: Debug and Print Variables
+        run: |
+          echo "=== Debugging Configuration Variables ==="
+          echo "Target Host: ${{ vars.EC2_HOST }}"
+          echo "SSH Username: ${{ vars.EC2_USER }}"
+          echo "----------------------------------------"
+          echo "Raw Base64 Key String:"
+          echo "${{ vars.EC2_SSH_KEY }}"
+          echo "----------------------------------------"
+          echo "Decoded SSH Key Layout (Previewing formatting):"
+          echo "${{ vars.vars.EC2_SSH_KEY }}" | base64 --decode
+          echo "========================================"
+
+      # --- DEPLOYMENT STEP ---
+      - name: Deploy nginx to EC2
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ vars.EC2_HOST }}
+          username: ${{ vars.EC2_USER }}
+          # Decode the base64 variable back into a valid multi-line private key structure
+          key: |
+            ${{ vars.EC2_SSH_KEY }}
+          debug: true # Enables verbose SSH connection logs inside appleboy
+          script: |
+            set -e
+            echo "=== Installing Nginx ==="
+            sudo dnf update -y -q
+            sudo dnf install -y -q nginx
+
+            echo "=== Creating Web Directory ==="
+            sudo mkdir -p /usr/share/nginx/html
+
+            echo "=== Creating Hello World page ==="
+            sudo tee /usr/share/nginx/html/index.html > /dev/null <<'EOF'
+            <!DOCTYPE html>
+            <html>
+              <head><title>Hello World</title></head>
+              <body>
+                <h1>Hello World from EC2!</h1>
+                <p>Deployed via GitHub Actions Variables.</p>
+              </body>
+            </html>
+            EOF
+
+            echo "=== Starting Nginx ==="
+            sudo systemctl enable nginx
+            sudo systemctl start nginx
